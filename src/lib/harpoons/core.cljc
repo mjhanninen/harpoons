@@ -232,7 +232,11 @@
     (>-<>
       (group-by :category <>)
       (concat (:a <>) (:b <>))))
-  ```"
+  ```
+
+  Note that `>-<>` is essentially equivalent to `-<>`.  It differs only by its
+  `:style/indent` meta-data that guides more advanced editors in laying out
+  the source code."
   {:added "0.1"
    :doc/format :markdown
    :style/indent 0}
