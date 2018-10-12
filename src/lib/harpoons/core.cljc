@@ -64,7 +64,7 @@
 (defmacro cond-<>
   "Evaluate `clauses` conditionally threading the results through the diamonds.
 
-  ```
+  ```clojure
   (cond-<> 10
     false (+ <> 1)  ; ignored
     (= <> 10) (* <> <>))
@@ -112,7 +112,7 @@
 
   Example:
 
-  ```
+  ```clojure
   (-<> (range 2 4)
     (<>-fx! (prn :before <>)) ; \":before (2 3)\"
     (for [x <> y <>] (* x y))
@@ -180,7 +180,7 @@
 
   Example:
 
-  ```
+  ```clojure
   (= (-> {:foo 42}
        (>-fx! (prn :before <>)) ; \":before {:foo 42}\"
        (assoc :bar 3.14)
@@ -221,15 +221,17 @@
 (defmacro >-<>
   "Bridge between an outer left-threading and inner diamond-threading scopes.
 
-  Example:
+  **Example:** Listing the subjects belonging to categories A and B from the
+  first trial of the study.
 
   ```clojure
-  (-> my-map
-      :key
-      :subkey
-      (>-<> (/ <> 7.5)                 ; hourly
-            (- 100.0 <>)               ; sales margin
-            (filter #(> % <>) foos)))
+  (-> study
+    :trials
+    (get 0)
+    :subjects
+    (>-<>
+      (group-by :category <>)
+      (concat (:a <>) (:b <>))))
   ```"
   {:added "0.1"
    :doc/format :markdown
@@ -270,18 +272,18 @@
 (defmacro >>-fx!
   "Run a side-fxect within a right-threading scope.
 
-  Evaluates `forms` for their side fxect and returns `expr`. The value of
+  Evaluates `forms` for their side effects and returns `expr`. The value of
   `expr` is bound to `<>` and, thus, is accessible to `forms`. The expression
   `expr` is evaluated once.
 
   Examples:
 
-  ```
+  ```clojure
   (= (->> (range 5)
        (>>-fx! (prn :before <>)) ; prints \":before (0 1 2 3 4)\"
        (filter even?)
        (>>-fx! (prn :after <>))) ; prints \":after (0 2 4)\"
-     '(0 2 4))                    ; => true
+     '(0 2 4))                   ; => true
   ```"
   {:added "0.1"
    :forms '[(>>-fx! forms* expr)]
@@ -289,8 +291,8 @@
    :style/indent 0}
   ([expr]
    expr)
-  ([body-form & body-and-expr]
-   `(-<> ~(last body-and-expr) (<>-fx! ~body-form ~@(butlast body-and-expr)))))
+  ([form & forms-and-expr]
+   `(-<> ~(last forms-and-expr) (<>-fx! ~form ~@(butlast forms-and-expr)))))
 
 ;;;
 ;;; Bridges
@@ -301,22 +303,22 @@
   {:added "0.1"
    :doc/format :markdown
    :style/indent 0}
-  [& body]
-  `(-> ~(last body) ~@(butlast body)))
+  [& forms]
+  `(-> ~(last forms) ~@(butlast forms)))
 
 (defmacro >>-<>
   "Bridge between an outer `(->> ...)` and inner `(-<> ...)` threading scopes."
   {:added "0.1"
    :doc/format :markdown
    :style/indent 0}
-  [& body]
-  `(-<> ~(last body) ~@(butlast body)))
+  [& forms]
+  `(-<> ~(last forms) ~@(butlast forms)))
 
 (defmacro <>->
   "Bridge between an outer `(-<> ...)` and inner `(-> ...)` threading scopes.
 
   Note that the entry value of the inner `(-> ...)` threading scope is bound
-  to the simple symbol `<>` is throughout the whole scope.  For example:
+  to the simple symbol `<>` throughout the inner scope.  For example:
 
   ```clojure
   (-<> 3
@@ -335,7 +337,7 @@
   "Bridge between an outer `(-<> ...)` and inner `(->> ...)` threading scopes.
 
   Note that the entry value of the inner `(->> ...)` threading scope is bound
-  to the simple symbol `<>` is throughout the whole scope.  For example:
+  to the simple symbol `<>` throughout the inner scope.  For example:
 
   ```clojure
   (-<> 3
