@@ -16,6 +16,22 @@
 | Bridge to an inner `>>` threading context | `(>->> forms*)` | | `(<>->> forms*)` |
 | Bridge to an inner `<>` threading context | `(>-<> forms*)` | `(>>-<> forms*)` | |
 
+## Usage
+
+Merge the following dependency data into your
+[**deps.edn**](https://clojure.org/reference/deps_and_cli) file:
+
+```clojure
+{:deps {codebrutale/harpoons {:git/url "https://github.com/codebrutale/harpoons.git"
+                              :sha "<insert commit SHA here>"}}}
+```
+
+and then import the library in your namespace declaration like so:
+
+```clojure
+(:require '[harpoons.core :refer :all])
+```
+
 ## Influence
 
 To give credit where it is due the following libraries that have served as
