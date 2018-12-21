@@ -105,9 +105,9 @@
   `(do ~@body))
 
 (defmacro <>-fx!
-  "Run a side-fxect within a diamond-threading scope.
+  "Run a side-effect within a diamond-threading scope.
 
-  Evaluates `body-forms` for their side fxects and returns the value bound to
+  Evaluates `body-forms` for their side effects and returns the value bound to
   the simple symbol `<>`.
 
   Example:
@@ -173,9 +173,9 @@
   `(-<> ~expr (<>-do ~@body)))
 
 (defmacro >-fx!
-  "Run a side-fxect within a left-threading scope.
+  "Run a side-effect within a left-threading scope.
 
-   Evaluates `forms` for their side fxect and returns `expr`. The value of
+   Evaluates `forms` for their side effect and returns `expr`. The value of
   `expr` is bound to `<>` and, thus, is accessible to `forms`. The expression
   `expr` is evaluated once.
 
@@ -266,7 +266,6 @@
                        forms)))))
 
 (defmacro >>-do
-  ""
   {:added "0.1"
    :doc/format :markdown
    :style/indent 0}
@@ -275,7 +274,7 @@
      (<>-do ~@(butlast body-and-expr))))
 
 (defmacro >>-fx!
-  "Run a side-fxect within a right-threading scope.
+  "Run a side-effect within a right-threading scope.
 
   Evaluates `forms` for their side effects and returns `expr`. The value of
   `expr` is bound to `<>` and, thus, is accessible to `forms`. The expression
