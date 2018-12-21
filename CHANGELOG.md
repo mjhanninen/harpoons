@@ -11,8 +11,9 @@ versioning][semver].
 
 ### Added
 
-- Macros `-<>`, `<>->`, `<>->>`, `<>-do`, `<>-fx!`, `>-<>`, `>->>`, `>-do`,
-  `>-fx!`, `>>-<>`, `>>->`, `>>-do`, `>>-fx!`, `cond-<>`, `non-nil-<>`,
+- Macros `-<>`, `<>->`, `<>->>`, `<>-do`, `<>-fx!`, `<>-let`, `<>-bind`,
+  `>-<>`, `>->>`, `>-do`, `>-fx!`, `>-let`, `>-bind`, `>>-<>`, `>>->`,
+  `>>-do`, `>>-fx!`, `>>-let`, `>>-bind`, `cond-<>`, `non-nil-<>`,
   `non-nil->`, `non-nil->>`, and `some-<>` to `harpoons.core`
 
 [keepachangelog.com]: https://keepachangelog.com/
