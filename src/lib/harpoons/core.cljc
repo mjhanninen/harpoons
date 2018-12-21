@@ -165,10 +165,11 @@
                            (list form v)))
                        forms)))))
 
-(defmacro >-do [expr & body]
+(defmacro >-do
   {:added "0.1"
    :doc/format :markdown
    :style/indent 0}
+  [expr & body]
   `(-<> ~expr (<>-do ~@body)))
 
 (defmacro >-fx!
