@@ -10,8 +10,10 @@
 | Short-circuit at the first nil value | `(some-> expr forms*)` | `(some->> expr forms*` | `(some-<> expr forms*)` |
 | Short-circuit at the first non-nil value | `(non-nil-> epxr forms*)` | `(non-nil->> expr forms*)` | `(non-nil-<> expr forms*)` |
 | Conditional threading | `(cond-> expr {test form}*)` | `(cond->> expr {test form}*)` | `(cond-<> expr {test form}*)` |
-| Evaluate the forms, return the value of the last one back to the threading context | `(>-do forms*)` | `(>>-do forms*)` | `(<>-do forms*)` |
-| Evaluate forms for side-effects, don't alter the threaded value | `(>-fx! forms*)` | (`>>-fx! forms*)` | `(<>-fx! forms*)` |
+| Bind the threaded value to a symbol | `(>-bind binding-form forms*)` | (`>>-bind binding-form forms*)` | `(<>-bind binding-form forms*)` |
+| Evaluate the body, return the value of the last one back to the threading context | `(>-do body*)` | `(>>-do body*)` | `(<>-do body*)` |
+| Evaluate the body with the threaded result bound a symbol, return the last value | `(>-let binding-form body*)` | `(>>-let binding-form body*)` | `(<>-let binding-form body*)` |
+| Evaluate the body for side-effects, don't alter the threaded value | `(>-fx! body*)` | (`>>-fx! body*)` | `(<>-fx! body*)` |
 | Bridge to an inner `>` threading context | | `(>>-> forms*)` | `(<>-> forms*)` |
 | Bridge to an inner `>>` threading context | `(>->> forms*)` | | `(<>->> forms*)` |
 | Bridge to an inner `<>` threading context | `(>-<> forms*)` | `(>>-<> forms*)` | |
