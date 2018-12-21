@@ -127,6 +127,39 @@
   [& body-forms]
   `(<>-do ~@body-forms ~'<>))
 
+(defmacro <>-let
+  "Bind the value from the diamond-threading scode and evaluate the body forms.
+
+  Binds the value threaded in the outer diamond-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Evaluates the forms
+  in `body` returning the value of the last.
+
+  Note that the value threaded in the outer diamond threading scope remain
+  bound to the symbol `<>`."
+  {:added "0.1"
+   :forms '[(<>-bind binding-form body-forms*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & body]
+  `(let [~binding-form ~'<>]
+     ~@body))
+
+(defmacro <>-bind
+  "Bind the threaded value within a diamond-threading scope.
+
+  Binds the value threaded in the outer diamond-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Continues the
+  diamond-threading scope by evaluating the `forms` successively
+  threading the result of the previous evaluation into the next form at
+  locations marked by the diamond symbol `<>`."
+  {:added "0.1"
+   :forms '[(<>-bind binding-form forms*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & forms]
+  `(let [~binding-form ~'<>]
+     (-<> ~'<> ~@forms)))
+
 ;;;
 ;;; Left threading
 ;;;
@@ -194,6 +227,37 @@
    :style/indent 0}
   [expr & body]
   `(-<> ~expr (<>-fx! ~@body)))
+
+(defmacro >-let
+  "Bind the value from the left-threading scode and evaluate the body forms.
+
+  Binds the value threaded in the outer left-threading scope to the symbols in
+  `binding-form` destructuring the value as necessary.  Evaluates the forms in
+  `body` returning the value of the last."
+  {:added "0.1"
+   :forms '[(>-let threaded-value binding-form body*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [threaded-value binding-form & body]
+  `(let [~binding-form ~threaded-value]
+     ~@body))
+
+(defmacro >-bind
+  "Bind the threaded value within a left-threading scope.
+
+  Binds the value threaded in the outer left-threading scope to the symbols in
+  `binding-form` destructuring the value as necessary.  Continues the
+  left-threading scope by evaluating `forms` successively and threading the
+  result from the previous evaluation through the first argument position
+  within the next form."
+  {:added "0.1"
+   :forms '[(>-bind threaded-value binding-form forms*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [threaded-value binding-form & forms]
+  `(let [value# ~threaded-value
+         ~binding-form value#]
+     (-> value# ~@forms)))
 
 (defmacro >->>
   "Bridge between an outer left-threading and inner right-threading scopes.
@@ -297,6 +361,37 @@
    expr)
   ([form & forms-and-expr]
    `(-<> ~(last forms-and-expr) (<>-fx! ~form ~@(butlast forms-and-expr)))))
+
+(defmacro >>-let
+  "Bind the value from the right-threading scode and evaluate the body forms.
+
+  Binds the value threaded in the outer right-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Evaluates the forms
+  in `body` returning the value of the last."
+  {:added "0.1"
+   :forms '[(>>-let binding-form body* threaded-value)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & body-and-threaded-value]
+  `(let [~binding-form ~(last body-and-threaded-value)]
+     ~@(butlast body-and-threaded-value)))
+
+(defmacro >>-bind
+  "Bind the threaded value within a right-threading context.
+
+  Binds the value threaded in the outer right-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Continues the
+  right-threading scope by evaluating `forms` successively and threading the
+  result from the previous evaluation through the last argument position within
+  the next form."
+  {:added "0.1"
+   :forms '[(>>-bind binding-form forms* threaded-value)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & forms-and-threaded-value]
+  `(let [value# ~(last forms-and-threaded-value)
+         ~binding-form value#]
+     (->> value# ~@(butlast forms-and-threaded-value))))
 
 ;;;
 ;;; Bridges
