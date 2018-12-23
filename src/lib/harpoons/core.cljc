@@ -92,6 +92,78 @@
   `(let [~'<> ~expr]
      (non-nil ~@forms)))
 
+(defmacro <>-some
+  "Start an inner \"and\" short-circuiting context within a diamond-threading context.
+
+  Embeds a short-circuiting diamond-threading context that returns the first
+  nil value.  Seeds the embedded context with the threaded value from the
+  enclosing diamond-threading context.  See also: `harpoons.core/some-<>`."
+  {:added "0.1"
+   :forms ['(<>-some threaded-form*)]
+   :doc/format :markdown
+   :style/indent 0}
+  [& clauses]
+  `(some-<> ~'<> ~@clauses))
+
+(defmacro <>-non-nil
+  "Start an inner \"or\" short-circuiting context within a diamond-threading context.
+
+  Embeds a short-circuiting diamond-threading context that returns the first
+  non-nil value.  Seeds the embedded context with the threaded value from the
+  enclosing diamond-threading context.  See also: `harpoons.core/non-nil-<>`."
+  {:added "0.1"
+   :forms ['(<>-non-nil threaded-form*)]
+   :doc/format :markdown
+   :style/indent 0}
+  [& clauses]
+  `(non-nil-<> ~'<> ~@clauses))
+
+(defmacro <>-cond
+  "Start an inner conditional context within a diamond-threading context.
+
+  Embeds a conditional diamond-threading context.  Seeds the embedded context
+  with the threaded value from the enclosing diamond-threading context.  See
+  also: `harpoons.core/cond-<>`."
+  {:added "0.1"
+   :forms ['(cond-<> clause*)]
+   :doc/format :markdown
+   :style/indent 0}
+  [& clauses]
+  `(cond-<> ~'<> ~@clauses))
+
+(defmacro <>-bind
+  "Bind the threaded value within a diamond-threading scope.
+
+  Binds the value threaded in the outer diamond-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Continues the
+  diamond-threading scope by evaluating the `forms` successively
+  threading the result of the previous evaluation into the next form at
+  locations marked by the diamond symbol `<>`."
+  {:added "0.1"
+   :forms '[(<>-bind binding-form forms*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & forms]
+  `(let [~binding-form ~'<>]
+     (-<> ~'<> ~@forms)))
+
+(defmacro <>-let
+  "Bind the value from the diamond-threading scode and evaluate the body forms.
+
+  Binds the value threaded in the outer diamond-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Evaluates the forms
+  in `body` returning the value of the last.
+
+  Note that the value threaded in the outer diamond threading scope remain
+  bound to the symbol `<>`."
+  {:added "0.1"
+   :forms '[(<>-bind binding-form body-forms*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & body]
+  `(let [~binding-form ~'<>]
+     ~@body))
+
 (defmacro <>-do
   "Evaluate forms returning the last value within a diamond-threading scope.
 
@@ -126,39 +198,6 @@
    :style/indent 0}
   [& body-forms]
   `(<>-do ~@body-forms ~'<>))
-
-(defmacro <>-let
-  "Bind the value from the diamond-threading scode and evaluate the body forms.
-
-  Binds the value threaded in the outer diamond-threading scope to the symbols
-  in `binding-form` destructuring the value as necessary.  Evaluates the forms
-  in `body` returning the value of the last.
-
-  Note that the value threaded in the outer diamond threading scope remain
-  bound to the symbol `<>`."
-  {:added "0.1"
-   :forms '[(<>-bind binding-form body-forms*)]
-   :doc/format :markdown
-   :style/indent 1}
-  [binding-form & body]
-  `(let [~binding-form ~'<>]
-     ~@body))
-
-(defmacro <>-bind
-  "Bind the threaded value within a diamond-threading scope.
-
-  Binds the value threaded in the outer diamond-threading scope to the symbols
-  in `binding-form` destructuring the value as necessary.  Continues the
-  diamond-threading scope by evaluating the `forms` successively
-  threading the result of the previous evaluation into the next form at
-  locations marked by the diamond symbol `<>`."
-  {:added "0.1"
-   :forms '[(<>-bind binding-form forms*)]
-   :doc/format :markdown
-   :style/indent 1}
-  [binding-form & forms]
-  `(let [~binding-form ~'<>]
-     (-<> ~'<> ~@forms)))
 
 ;;;
 ;;; Left threading
@@ -198,6 +237,82 @@
                            (list form v)))
                        forms)))))
 
+(defmacro >-some
+  "Start an inner \"and\" short-circuiting context within a left-threading context.
+
+  Embeds a short-circuiting left-threading context that returns the first nil
+  value.  Seeds the embedded context with the threaded value from the
+  enclosing left-threading context.  See also: `clojure.core/some->`.
+
+  Note: This is effectively an alias for `clojure.core/some->`."
+  {:added "0.1"
+   :forms ['(>-some expr threaded-form*)]
+   :doc/format :markdown
+   :style/indent 0}
+  [expr & threaded-forms]
+  `(some-> ~expr ~@threaded-forms))
+
+(defmacro >-non-nil
+  "Start an inner \"or\" short-circuiting context within a left-threading context.
+
+  Embeds a short-circuiting left-threading context that returns the first
+  non-nil value.  Seeds the embedded context with the threaded value from the
+  enclosing left-threading context.  See also: `harpoons.core/non-nil->`.
+
+  Note: This is effectively an alias for `harpoons.core/non-nil->`."
+  {:added "0.1"
+   :forms ['(>-non-nil expr threaded-form*)]
+   :doc/format :markdown
+   :style/indent 0}
+  [expr & threaded-forms]
+  `(non-nil-> ~expr ~@threaded-forms))
+
+(defmacro >-cond
+  "Start an inner conditional context within a left-threading context.
+
+  Embeds a conditional left-threading context.  Seeds the embedded context
+  with the threaded value from the enclosing left-threading context.  See
+  also: `clojure.core/cond->`.
+
+  Note: This is effectively an alias for `clojure.core/cond->`."
+  {:added "0.1"
+   :forms ['(>-cond expr clause*)]
+   :doc/format :markdown
+   :style/indent 0}
+  [expr & clauses]
+  `(cond-> ~expr ~@clauses))
+
+(defmacro >-bind
+  "Bind the threaded value within a left-threading scope.
+
+  Binds the value threaded in the outer left-threading scope to the symbols in
+  `binding-form` destructuring the value as necessary.  Continues the
+  left-threading scope by evaluating `forms` successively and threading the
+  result from the previous evaluation through the first argument position
+  within the next form."
+  {:added "0.1"
+   :forms '[(>-bind threaded-value binding-form forms*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [threaded-value binding-form & forms]
+  `(let [value# ~threaded-value
+         ~binding-form value#]
+     (-> value# ~@forms)))
+
+(defmacro >-let
+  "Bind the value from the left-threading scode and evaluate the body forms.
+
+  Binds the value threaded in the outer left-threading scope to the symbols in
+  `binding-form` destructuring the value as necessary.  Evaluates the forms in
+  `body` returning the value of the last."
+  {:added "0.1"
+   :forms '[(>-let threaded-value binding-form body*)]
+   :doc/format :markdown
+   :style/indent 1}
+  [threaded-value binding-form & body]
+  `(let [~binding-form ~threaded-value]
+     ~@body))
+
 (defmacro >-do
   {:added "0.1"
    :doc/format :markdown
@@ -227,37 +342,6 @@
    :style/indent 0}
   [expr & body]
   `(-<> ~expr (<>-fx! ~@body)))
-
-(defmacro >-let
-  "Bind the value from the left-threading scode and evaluate the body forms.
-
-  Binds the value threaded in the outer left-threading scope to the symbols in
-  `binding-form` destructuring the value as necessary.  Evaluates the forms in
-  `body` returning the value of the last."
-  {:added "0.1"
-   :forms '[(>-let threaded-value binding-form body*)]
-   :doc/format :markdown
-   :style/indent 1}
-  [threaded-value binding-form & body]
-  `(let [~binding-form ~threaded-value]
-     ~@body))
-
-(defmacro >-bind
-  "Bind the threaded value within a left-threading scope.
-
-  Binds the value threaded in the outer left-threading scope to the symbols in
-  `binding-form` destructuring the value as necessary.  Continues the
-  left-threading scope by evaluating `forms` successively and threading the
-  result from the previous evaluation through the first argument position
-  within the next form."
-  {:added "0.1"
-   :forms '[(>-bind threaded-value binding-form forms*)]
-   :doc/format :markdown
-   :style/indent 1}
-  [threaded-value binding-form & forms]
-  `(let [value# ~threaded-value
-         ~binding-form value#]
-     (-> value# ~@forms)))
 
 (defmacro >->>
   "Bridge between an outer left-threading and inner right-threading scopes.
@@ -329,6 +413,79 @@
                            (list form v)))
                        forms)))))
 
+(defmacro >>-some
+  "Start an inner \"and\" short-circuiting context within a right-threading context.
+
+  Embeds a short-circuiting right-threading context that returns the first nil
+  value.  Seeds the embedded context with the threaded value from the
+  enclosing right-threading context.  See also: `clojure.core/some->>`."
+  {:added "0.1"
+   :forms ['(>>-some threaded-form* expr)]
+   :doc/format :markdown
+   :style/indent 0}
+  [& threaded-forms-and-expr]
+  `(some->> ~(last threaded-forms-and-expr)
+     ~@(butlast threaded-forms-and-expr)))
+
+(defmacro >>-non-nil
+  "Start an inner \"or\" short-circuiting context within a right-threading context.
+
+  Embeds a short-circuiting right-threading context that returns the first
+  non-nil value.  Seeds the embedded context with the threaded value from the
+  enclosing right-threading context.  See also: `harpoons.core/non-nil->>`."
+  {:added "0.1"
+   :forms ['(>>-non-nil threaded-form* expr)]
+   :doc/format :markdown
+   :style/indent 0}
+  [& threaded-forms-and-expr]
+  `(non-nil->> ~(last threaded-forms-and-expr)
+     ~@(butlast threaded-forms-and-expr)))
+
+(defmacro >>-cond
+  "Start an inner conditional context within a right-threading context.
+
+  Embeds a conditional right-threading context.  Seeds the embedded context
+  with the threaded value from the enclosing right-threading context.  See
+  also: `clojure.core/cond->>`."
+  {:added "0.1"
+   :forms ['(>>-cond clause* expr)]
+   :doc/format :markdown
+   :style/indent 0}
+  [& clauses-and-expr]
+  `(cond-> ~(last clauses-and-expr)
+     ~@(butlast clauses-and-expr)))
+
+(defmacro >>-bind
+  "Bind the threaded value within a right-threading context.
+
+  Binds the value threaded in the outer right-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Continues the
+  right-threading scope by evaluating `forms` successively and threading the
+  result from the previous evaluation through the last argument position within
+  the next form."
+  {:added "0.1"
+   :forms '[(>>-bind binding-form forms* threaded-value)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & forms-and-threaded-value]
+  `(let [value# ~(last forms-and-threaded-value)
+         ~binding-form value#]
+     (->> value# ~@(butlast forms-and-threaded-value))))
+
+(defmacro >>-let
+  "Bind the value from the right-threading scode and evaluate the body forms.
+
+  Binds the value threaded in the outer right-threading scope to the symbols
+  in `binding-form` destructuring the value as necessary.  Evaluates the forms
+  in `body` returning the value of the last."
+  {:added "0.1"
+   :forms '[(>>-let binding-form body* threaded-value)]
+   :doc/format :markdown
+   :style/indent 1}
+  [binding-form & body-and-threaded-value]
+  `(let [~binding-form ~(last body-and-threaded-value)]
+     ~@(butlast body-and-threaded-value)))
+
 (defmacro >>-do
   {:added "0.1"
    :doc/format :markdown
@@ -361,37 +518,6 @@
    expr)
   ([form & forms-and-expr]
    `(-<> ~(last forms-and-expr) (<>-fx! ~form ~@(butlast forms-and-expr)))))
-
-(defmacro >>-let
-  "Bind the value from the right-threading scode and evaluate the body forms.
-
-  Binds the value threaded in the outer right-threading scope to the symbols
-  in `binding-form` destructuring the value as necessary.  Evaluates the forms
-  in `body` returning the value of the last."
-  {:added "0.1"
-   :forms '[(>>-let binding-form body* threaded-value)]
-   :doc/format :markdown
-   :style/indent 1}
-  [binding-form & body-and-threaded-value]
-  `(let [~binding-form ~(last body-and-threaded-value)]
-     ~@(butlast body-and-threaded-value)))
-
-(defmacro >>-bind
-  "Bind the threaded value within a right-threading context.
-
-  Binds the value threaded in the outer right-threading scope to the symbols
-  in `binding-form` destructuring the value as necessary.  Continues the
-  right-threading scope by evaluating `forms` successively and threading the
-  result from the previous evaluation through the last argument position within
-  the next form."
-  {:added "0.1"
-   :forms '[(>>-bind binding-form forms* threaded-value)]
-   :doc/format :markdown
-   :style/indent 1}
-  [binding-form & forms-and-threaded-value]
-  `(let [value# ~(last forms-and-threaded-value)
-         ~binding-form value#]
-     (->> value# ~@(butlast forms-and-threaded-value))))
 
 ;;;
 ;;; Bridges
