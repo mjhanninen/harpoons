@@ -343,54 +343,9 @@
   [expr & body]
   `(-<> ~expr (<>-fx! ~@body)))
 
-(defmacro >->>
-  "Bridge between an outer left-threading and inner right-threading scopes.
-
-  It is notable that this is essentially the same as the `(->> ...)` threading
-  macro.  You should use this version only when it is justified by emphasizing
-  the bridge point or by maintaining consistency with other bridge points.
-  Otherwise just use the standard `(->> ...)`.
-
-  Example:
-
-  ```clojure
-  (-> monster
-    :inventory
-    (>->>
-      (filter #(> (:weight %) 10.0))
-      (sort-by :weight)
-      (take 5)))
-  ```"
-  {:added "0.1"
-   :doc/format :markdown
-   :style/indent 0}
-  [expr & forms]
-  `(->> ~expr ~@forms))
-
-(defmacro >-<>
-  "Bridge between an outer left-threading and inner diamond-threading scopes.
-
-  **Example:** Listing the subjects belonging to categories A and B from the
-  first trial of the study.
-
-  ```clojure
-  (-> study
-    :trials
-    (get 0)
-    :subjects
-    (>-<>
-      (group-by :category <>)
-      (concat (:a <>) (:b <>))))
-  ```
-
-  Note that `>-<>` is essentially equivalent to `-<>`.  It differs only by its
-  `:style/indent` meta-data that guides more advanced editors in laying out
-  the source code."
-  {:added "0.1"
-   :doc/format :markdown
-   :style/indent 0}
-  [expr & body]
-  `(-<> ~expr ~@body))
+;;;
+;;; Right threading
+;;;
 
 (defmacro non-nil->>
   "Return the first non-nil evaluation of `forms` with `expr` as the rightmost argument.
@@ -522,6 +477,55 @@
 ;;;
 ;;; Bridges
 ;;;
+
+(defmacro >->>
+  "Bridge between an outer left-threading and inner right-threading scopes.
+
+  It is notable that this is essentially the same as the `(->> ...)` threading
+  macro.  You should use this version only when it is justified by emphasizing
+  the bridge point or by maintaining consistency with other bridge points.
+  Otherwise just use the standard `(->> ...)`.
+
+  Example:
+
+  ```clojure
+  (-> monster
+    :inventory
+    (>->>
+      (filter #(> (:weight %) 10.0))
+      (sort-by :weight)
+      (take 5)))
+  ```"
+  {:added "0.1"
+   :doc/format :markdown
+   :style/indent 0}
+  [expr & forms]
+  `(->> ~expr ~@forms))
+
+(defmacro >-<>
+  "Bridge between an outer left-threading and inner diamond-threading scopes.
+
+  **Example:** Listing the subjects belonging to categories A and B from the
+  first trial of the study.
+
+  ```clojure
+  (-> study
+    :trials
+    (get 0)
+    :subjects
+    (>-<>
+      (group-by :category <>)
+      (concat (:a <>) (:b <>))))
+  ```
+
+  Note that `>-<>` is essentially equivalent to `-<>`.  It differs only by its
+  `:style/indent` meta-data that guides more advanced editors in laying out
+  the source code."
+  {:added "0.1"
+   :doc/format :markdown
+   :style/indent 0}
+  [expr & body]
+  `(-<> ~expr ~@body))
 
 (defmacro >>->
   "Bridge between an outer `(->> ...)` and inner `(-> ...)` threading scopes."
