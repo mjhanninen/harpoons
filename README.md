@@ -1,4 +1,4 @@
-<p align="center"><img src="doc/harpoons-summary.svg"></p>
+<p align="center"><img src="docs/harpoons-summary.svg"></p>
 
 ## Usage
 
