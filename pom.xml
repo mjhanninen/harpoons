@@ -41,7 +41,7 @@
   </distributionManagement>
 
   <description>Composable threading macros</description>
-  <url>https://github.com/mjhanninen/harpoons</url>
+  <url>https://mjhanninen.github.io/harpoons</url>
   <licenses>
     <license>
       <name>Eclipse Public License</name>
