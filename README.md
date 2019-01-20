@@ -24,8 +24,8 @@ and then import the library in your namespace declaration like so:
 
 ## Influence
 
-To give credit where it is due the following libraries that have served as
-sources of inspiration for this one:
+To give credit where it is due the following libraries have served as sources
+of inspiration for this one:
 
 - [swiss-arrows](https://github.com/rplevy/swiss-arrows) by [Robert
   Levy](https://github.com/rplevy)
