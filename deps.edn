@@ -1,6 +1,6 @@
 {:paths ["src/lib"]
  :aliases
- {:pack
+ {:build
   {:extra-deps {pack/pack.alpha
                 {:git/url "git@github.com:juxt/pack.alpha.git"
                  :sha "90a84a01c365fdac224bf4eef6e9c8e1d018a29e"}}
