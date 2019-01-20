@@ -1,0 +1,56 @@
+(ns harpoons.core-test
+  (:require [clojure.test :refer [deftest testing is]]
+            [harpoons.core :refer :all]))
+
+(deftest -<>-tests
+
+  (testing "Entering expression is evaluated only once"
+    (let [a (atom 0)]
+      (is (= (-<> (swap! a inc)
+               [<> <> <> <> <> <> <>]
+               (apply + <>))
+             7))))
+
+  (testing "Basic data structures work naturally"
+    (let [s (gensym)]
+      (is (= (-<> s
+               {:l <> :r <>}
+               [<> <>]
+               #{<>})
+             #{[{:l s :r s} {:l s :r s}]}))))
+
+  (testing "Diamond can be used in function position"
+    (letfn [(thrice [x]
+              [x x x])]
+      (is (= (-<> thrice
+                  (<> <>))
+             [thrice thrice thrice])))))
+
+;; The `as->` macro seems to have few surprising limitations; consider
+;; reimplementing from scratch.
+#_
+(deftest disabled-<>-tests
+  ;; `as->` requires at least one argument
+  (testing "No arguments results in nil"
+    (is (nil? (-<>))))
+  ;; `as->` doesn't preserve the metadata
+  (testing "Metadata is preserved"
+    (is (contains? (meta (-<> ^:foo {} identity)) :foo))))
+
+(deftest some-<>-tests
+
+  (testing "Empty body results in nil"
+    (let [s (gensym)]
+      (is (= (some-<> s <> <>) s)))))
+
+
+(deftest non-nil->-tests
+
+  (testing "No expression results in nil"
+    (is (nil? (non-nil-> 42)))))
+
+#_
+(deftest this-fails
+
+  (testing "This test case fails always"
+    (is false)))
