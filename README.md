@@ -1,4 +1,10 @@
-<p align="center"><img src="docs/harpoons-summary.svg"></p>
+# Harpoons
+
+[![Clojars Project](https://img.shields.io/clojars/v/harpoons.svg)](https://clojars.org/harpoons)
+
+## Documentation
+
+See: https://mjhanninen.github.io/harpoons/
 
 ## Usage
 
