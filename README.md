@@ -6,8 +6,8 @@ Merge the following dependency data into your
 [**deps.edn**](https://clojure.org/reference/deps_and_cli) file:
 
 ```clojure
-{:deps {codebrutale/harpoons {:git/url "https://github.com/codebrutale/harpoons.git"
-                              :sha "<insert commit SHA here>"}}}
+{:deps {harpoons {:git/url "https://github.com/mjhanninen/harpoons.git"
+                  :sha "<insert commit SHA here>"}}}
 ```
 
 and then import the library in your namespace declaration like so:
@@ -26,7 +26,7 @@ sources of inspiration for this one:
 
 ## License
 
-Copyright © 2018 Code Brutale
+Copyright © 2018-19 Matti Hänninen
 
 Distributed under the Eclipse Public License either version 1.0 or (at your
 option) any later version.

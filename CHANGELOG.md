@@ -20,4 +20,4 @@ versioning][semver].
 
 [keepachangelog.com]: https://keepachangelog.com/
 [semver]: https://semver.org/
-[Unreleased]: https://github.com/codebrutale/harpoons/compare/...HEAD
+[Unreleased]: https://github.com/mjhanninen/harpoons/compare/...HEAD

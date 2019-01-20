@@ -1,6 +1,6 @@
-(defproject codebrutale/harpoons "0.1.0-SNAPSHOT"
+(defproject mjhanninen/harpoons "0.1.0-SNAPSHOT"
   :description "Composable threading macros"
-  :url "https://github.com/codebrutale/harpoons"
+  :url "https://github.com/mjhanninen/harpoons"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0"]]
