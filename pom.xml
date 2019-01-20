@@ -8,11 +8,6 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <dependencies>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>clojure</artifactId>
-      <version>1.9.0</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -48,6 +43,7 @@
       <url>http://www.eclipse.org/legal/epl-v10.html</url>
     </license>
   </licenses>
+
   <scm>
     <url>https://github.com/mjhanninen/harpoons</url>
   </scm>
