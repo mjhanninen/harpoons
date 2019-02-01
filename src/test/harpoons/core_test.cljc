@@ -23,24 +23,25 @@
     (letfn [(thrice [x]
               [x x x])]
       (is (= (-<> thrice
-                  (<> <>))
-             [thrice thrice thrice])))))
+               (<> <>))
+             [thrice thrice thrice]))))
 
-;; The `as->` macro seems to have few surprising limitations; consider
-;; reimplementing from scratch.
-#_
-(deftest disabled-<>-tests
-  ;; `as->` requires at least one argument
-  (testing "No arguments results in nil"
-    (is (nil? (-<>))))
-  ;; `as->` doesn't preserve the metadata
-  (testing "Metadata is preserved"
-    (is (contains? (meta (-<> ^:foo {} identity)) :foo))))
+  ;; The `as->` macro seems to have few surprising limitations; consider
+  ;; reimplementing from scratch.
+  #_
+  (comment
+    ;; `as->` requires at least one argument
+    (testing "No arguments results in nil"
+      (is (nil? (-<>))))
+    ;; `as->` doesn't preserve the metadata
+    (testing "Metadata is preserved"
+      (is (contains? (meta (-<> ^:foo {} identity)) :foo)))))
 
 (deftest some-<>-tests
 
   (testing "Empty body results in nil"
     (let [s (gensym)]
+      (is (= (some-<> s <> <>) s))
       (is (= (some-<> s <> <>) s)))))
 
 
@@ -48,9 +49,3 @@
 
   (testing "No expression results in nil"
     (is (nil? (non-nil-> 42)))))
-
-#_
-(deftest this-fails
-
-  (testing "This test case fails always"
-    (is false)))

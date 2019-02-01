@@ -1,18 +1,31 @@
 {:paths ["src/lib"]
+
  :aliases
  {:build
   {:extra-deps {pack/pack.alpha
                 {:git/url "git@github.com:juxt/pack.alpha.git"
                  :sha "90a84a01c365fdac224bf4eef6e9c8e1d018a29e"}}
-   :main-opts ["-m" "mach.pack.alpha.skinny" "--no-libs" "--project-path"
-               "target/harpoons.jar"]}
+   :main-opts ["-m" "mach.pack.alpha.skinny"
+               "--no-libs"
+               "--project-path" "target/harpoons.jar"]}
 
   :deploy
   {:extra-deps {deps-deploy {:mvn/version "RELEASE"}}
-   :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "target/harpoons.jar"]}
+   :main-opts ["-m" "deps-deploy.deps-deploy"
+               "deploy" "target/harpoons.jar"]}
 
   :test
   {:extra-paths ["src/test"]
-   :extra-deps {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                                           :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
-   :main-opts ["-m" "cognitect.test-runner" "-d" "src/test"]}}}
+   :extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                 :sha "cb96e80f6f3d3b307c59cbeb49bb0dcb3a2a780b"}}
+   :main-opts ["-m" "cognitect.test-runner"
+               "--dir" "src/test"]}
+
+  :1.7 {:override-deps {org.clojure/clojure {:mvn/version "1.7.0"}}}
+
+  :1.8 {:override-deps {org.clojure/clojure {:mvn/version "1.8.0"}}}
+
+  :1.9 {:override-deps {org.clojure/clojure {:mvn/version "1.9.0"}}}
+
+  :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.0"}}}}}
