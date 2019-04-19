@@ -9,6 +9,8 @@ versioning][semver].
 
 ## [Unreleased]
 
+## [0.0.1] - 2019-04-19
+
 ### Added
 
 - Macros `-<>`, `<>->`, `<>->>`, `<>-some`, `<>-non-nil`, `<>-cond`,
@@ -20,4 +22,5 @@ versioning][semver].
 
 [keepachangelog.com]: https://keepachangelog.com/
 [semver]: https://semver.org/
-[Unreleased]: https://github.com/mjhanninen/harpoons/compare/...HEAD
+[Unreleased]: https://github.com/mjhanninen/harpoons/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/mjhanninen/harpoons/releases/v0.0.1
