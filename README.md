@@ -1,6 +1,6 @@
 # Harpoons
 
-[![Clojars Project](https://img.shields.io/clojars/v/harpoons.svg)](https://clojars.org/harpoons)
+[![Clojars Project](https://img.shields.io/clojars/v/harpoons.svg)](https://clojars.org/harpoons) [![CircleCI](https://circleci.com/gh/mjhanninen/harpoons.svg?style=svg)](https://circleci.com/gh/mjhanninen/harpoons)
 
 ## Documentation
 
