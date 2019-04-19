@@ -6,22 +6,6 @@
 
 See: https://mjhanninen.github.io/harpoons/
 
-## Usage
-
-Merge the following dependency data into your
-[**deps.edn**](https://clojure.org/reference/deps_and_cli) file:
-
-```clojure
-{:deps {harpoons {:git/url "https://github.com/mjhanninen/harpoons.git"
-                  :sha "<insert commit SHA here>"}}}
-```
-
-and then import the library in your namespace declaration like so:
-
-```clojure
-(:require '[harpoons.core :refer :all])
-```
-
 ## Influence
 
 To give credit where it is due the following libraries have served as sources
