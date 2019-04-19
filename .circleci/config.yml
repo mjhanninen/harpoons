@@ -15,7 +15,7 @@ jobs:
       - run: clojure -A:test:1.10
       # XXX(soija) For now we do the build step for nothing as the CI isn't
       # used for the deployment yet
-      - run: clojure -A:build
+      - run: ./scripts/build.sh
       - save_cache:
           paths:
             - ~/.m2
