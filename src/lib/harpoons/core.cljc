@@ -14,14 +14,7 @@
   the diamond symbol `<>`.  Initially the value of `expr` is bound to `<>`
   before the first form is evaluated.
 
-  Note that `(-<> expr ...)` is equivalent to `(as-> expr <> ...)`.
-
-  Examples:
-
-  ```clojure
-  > (-<> )
-  [:foo :bar :baz]
-  ```"
+  Note that `(-<> expr ...)` is equivalent to `(as-> expr <> ...)`."
   {:added "0.1"
    :doc/format :markdown
    :style/indent 1}
