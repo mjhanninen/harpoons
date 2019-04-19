@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/clojure:openjdk-11-tools-deps-1.10.0.442
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - deps-edn-{{ checksum "deps.edn" }}
+            - deps-edn-
+      - run: clojure -A:test:1.7
+      - run: clojure -A:test:1.8
+      - run: clojure -A:test:1.9
+      - run: clojure -A:test:1.10
+      # XXX(soija) For now we do the build step for nothing as the CI isn't
+      # used for the deployment yet
+      - run: clojure -A:build
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: deps-edn-{{ checksum "deps.edn" }}
