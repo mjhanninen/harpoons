@@ -1,6 +1,133 @@
 <!DOCTYPE html>
-<html lang="fi">
-  <meta charset="utf-8">
-  <title>Harpoons - Composable Clojure threading macros</title>
-  <p align="center"><img src="harpoons-summary.svg"></p>
-</html>
+<html><html><head><meta charset="utf-8"><title>Harpoons - Composable Clojure threading macros</title><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:400,700|IBM+Plex+Serif:400i" rel="stylesheet"><link href="style.css" rel="stylesheet"></head><body><main><h1>Harpoons</h1><p><b>Harpoons</b> is a Clojure and Clojurescript library providing a set of new
+       threading macros that complement and compose well with the existing
+       core threading macros.</p><section><h2>Starting threading context</h2><p>Start a normal threading context:</p><div class="code-block"><pre class="code-block__snippet code-block--existing"><code>(<span class="code-block__hot">-&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet code-block--existing"><code>(<span class="code-block__hot">-&gt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">-&lt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Start a short-circuiting threading context that exits at the first
+           nil value:</p><div class="code-block"><pre class="code-block__snippet code-block--existing"><code>(<span class="code-block__hot">some-&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet code-block--existing"><code>(<span class="code-block__hot">some-&gt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">some-&lt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Start a short-circuiting threading context that exits at the first
+           non-nil value:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">non-nil-&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">non-nil-&gt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">non-nil-&lt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Start a conditional threading context:</p><div class="code-block"><pre class="code-block__snippet code-block--existing"><code>(<span class="code-block__hot">cond-&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">test<sub>1</sub></span> <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">test<sub>n</sub></span> <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet code-block--existing"><code>(<span class="code-block__hot">cond-&gt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">test<sub>1</sub></span> <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">test<sub>n</sub></span> <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">cond-&lt;&gt;</span> <span class="metaform">expr</span>
+  <span class="metaform">test<sub>1</sub></span> <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">test<sub>n</sub></span> <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div></section><section><h2>Modifying threading context</h2><p>Convert the enclosing threading context into a corresponding
+           short-circuiting context that exits at the first nil value:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-some</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-some</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-some</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Convert the enclosing threading context into a corresponding
+           short-circuiting context that exits at the first non-nil value:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-non-nil</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-non-nil</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-non-nil</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Convert the enclosing threading context into a corresponding
+           conditional threading context:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-cond</span>
+  <span class="metaform">test<sub>1</sub></span> <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">test<sub>n</sub></span> <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-cond</span>
+  <span class="metaform">test<sub>1</sub></span> <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">test<sub>n</sub></span> <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-cond</span>
+  <span class="metaform">test<sub>1</sub></span> <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">test<sub>n</sub></span> <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Bind the threaded value to the symbols in <span class="metaform">binding-form</span> destructuring the value as necessary:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-bind</span> <span class="metaform">binding-form</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-bind</span> <span class="metaform">binding-form</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-bind</span> <span class="metaform">binding-form</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div></section><section><h2>Evaluating body within threading context</h2><p>Bind the threaded value to the symbols in <span class="metaform">binding-form</span> destructuring the value as necessary. Evaluate the body forms
+        returning the value of the last form back to the enclosing threading
+        context:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-let</span> <span class="metaform">binding-form</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-let</span> <span class="metaform">binding-form</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-let</span> <span class="metaform">binding-form</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre></div><p>Evaluate the body forms returning the value of the last form back to
+        the enclosing threading context. The threaded value is bount to the <code>&lt;&gt;</code> symbol throughout the scope of the body:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-do</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-do</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-do</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre></div><p>Evaluate the body forms for the side-effects only without altering the
+        threaded value in the enclosing threading context. The threaded value
+        is bound to the <code>&lt;&gt;</code> symbol throughout the scope of the body:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-fx!</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-fx!</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-fx!</span>
+  <span class="metaform">body-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">body-form<sub>n</sub></span></code>)</pre></div></section><section><h2>Bridging between different threading contexts</h2><p>Bridge to an inner <code>&gt;</code> threading context.  Note that when bridging from an outer <code>&lt;&gt;</code> context the value threaded in the context remain bound to the <code>&lt;&gt;</code> symbol and, thus, is accessible throughout the scope of the bridging
+       form:</p><div class="code-block"><pre class="code-block__snippet code-block__snippet--phantom"></pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-&gt;</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-&gt;</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Bridge to an inner <code>&gt;&gt;</code> threading context.  Note that when bridging from an outer <code>&lt;&gt;</code> context the value threaded in the context remain bound to the <code>&lt;&gt;</code> symbol and, thus, is accessible throughout the scope of the bridging
+       form:</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-&gt;&gt;</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet code-block__snippet--phantom"></pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&lt;&gt;-&gt;&gt;</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre></div><p>Bridge to an inner <code>&lt;&gt;</code> threading context.</p><div class="code-block"><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;-&lt;&gt;</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet"><code>(<span class="code-block__hot">&gt;&gt;-&lt;&gt;</span>
+  <span class="metaform">threaded-form<sub>1</sub></span>
+  &hellip;
+  <span class="metaform">threaded-form<sub>n</sub></span></code>)</pre><pre class="code-block__snippet code-block__snippet--phantom"></pre></div></section></main></body></html></html>

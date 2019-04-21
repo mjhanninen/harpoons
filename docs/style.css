@@ -1,0 +1,48 @@
+html {
+    font-family: sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+main {
+    max-width: 38rem;
+    padding: 2rem;
+    margin: auto;
+}
+code {
+    font-family: 'IBM Plex Mono', monospace;
+}
+.metaform {
+    font-family: 'IBM Plex Serif', serif;
+    font-style: italic;
+}
+.code-block {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+    background-color: #FAF7F7;
+}
+.code-block__snippet {
+    flex: 1;
+    margin: 0.5rem;
+    white-space: pre;
+}
+.code-block--existing {
+    color: #AAAABB;
+}
+.code-block__hot {
+    color: #CC0033;
+}
+.code-block--existing .code-block__hot {
+    color: inherit;
+}
+@media (max-width: 36rem) {
+    .code-block {
+        flex-direction: column;
+        padding: 0.25rem 0.5rem;
+    }
+    .code-block__snippet {
+        margin: 0.75rem 0.5rem;
+    }
+    .code-block__snippet--phantom {
+        display: none;
+    }
+}
