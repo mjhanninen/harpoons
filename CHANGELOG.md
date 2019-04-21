@@ -9,6 +9,10 @@ versioning][semver].
 
 ## [Unreleased]
 
+### Changed
+
+- Converted cheatsheet documentation from SVG to HTML format.
+
 ## [0.0.1] - 2019-04-19
 
 ### Added
