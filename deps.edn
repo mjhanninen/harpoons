@@ -28,7 +28,7 @@
   :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.0"}}}
 
   :dev
-  {:extra-paths ["src/dev"]
+  {:extra-paths ["src/dev" "src/test"]
    :extra-deps {criterium {:mvn/version "0.4.5"}
                 hiccup {:mvn/version "2.0.0-alpha2"}
                 org.clojure/test.check {:mvn/version "0.10.0-alpha4"}}}}}
