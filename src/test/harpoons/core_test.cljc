@@ -1,5 +1,5 @@
 (ns harpoons.core-test
-  (:require [clojure.test :refer [deftest testing is]]
+  (:require [clojure.test :refer [deftest testing is are]]
             [harpoons.core :refer :all]))
 
 (deftest -<>-tests
@@ -40,11 +40,76 @@
 (deftest some-<>-tests
 
   (testing "Empty body results in nil"
-    (let [s (gensym)]
-      (is (= (some-<> s <> <>) s))
-      (is (= (some-<> s <> <>) s)))))
 
-(deftest cond-<>-tests (is false))
+    (let [s (gensym)]
+      (is (= s (some-<> s)))
+      (is (= s (some-<> s <>)))
+      (is (= nil (some-<> s nil)))
+      (is (= s (some-<> s <> <>)))
+      (is (= nil (some-<> s nil <>)))
+      (is (= :other (some-<> s :other <>))))))
+
+(deftest cond-<>-tests
+
+  (testing "evaluate consequent forms iff condition satisfied"
+    (are [x y] (= x y)
+      [] (cond-<> [])
+      [1] (cond-<> []
+            true (conj <> 1))
+      [] (cond-<> []
+           false (conj <> 1))
+      [1 2] (cond-<> []
+              true (conj <> 1)
+              true (conj <> 2))
+      [2] (cond-<> []
+            false (conj <> 1)
+            true (conj <> 2))
+      [1] (cond-<> []
+            true (conj <> 1)
+            false (conj <> 2))
+      [] (cond-<> []
+           false (conj <> 1)
+           false (conj <> 2))))
+
+  (testing "honor Clojure truth and falsehood"
+    (is (= [:kw 'sym "str" true 0 1 () [] {} #{}]
+         (cond-<> []
+           :kw (conj <> :kw)
+           'sym (conj <> 'sym)
+           "str" (conj <> "str")
+           true (conj <> true)
+           false (conj <> false)
+           0 (conj <> 0)
+           1 (conj <> 1)
+           nil (conj <> nil)
+           () (conj <> ())
+           [] (conj <> [])
+           {} (conj <> {})
+           #{} (conj <> #{})))))
+
+  (testing "threaded value can be used in condition"
+    (is (= #{:foo :bar :baz}
+           (cond-<> #{:foo}
+             (<> :foo) (conj <> :bar)
+             (<> :bar) (conj <> :baz)))))
+
+  (testing "evaluate consequent forms at most once"
+    (is (= [[1 1 2] [1 1 2] 3]
+           (let [eval-count (atom 0)]
+             (cond-<> (swap! eval-count inc)
+               <> [<> <> (swap! eval-count inc)]
+               (not <>) [<> <> (swap! eval-count inc)]
+               <> [<> <> (swap! eval-count inc)])))))
+
+  (testing "threaded value can be used as a body and argument"
+    (are [x y] (= y x)
+      identity (cond-<> identity
+                 true (<> <>))
+      identity (cond-<> identity
+                 true (apply <> [<>]))
+      true (cond-<> identity
+             (<> <>) true))))
+
 (deftest non-nill-<>-tests (is false))
 (deftest <>-some-tests (is false))
 (deftest <>-non-nil-tests (is false))
