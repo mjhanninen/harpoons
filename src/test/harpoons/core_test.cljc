@@ -44,8 +44,44 @@
       (is (= (some-<> s <> <>) s))
       (is (= (some-<> s <> <>) s)))))
 
+(deftest cond-<>-tests (is false))
+(deftest non-nill-<>-tests (is false))
+(deftest <>-some-tests (is false))
+(deftest <>-non-nil-tests (is false))
+(deftest <>-cond-tests (is false))
+(deftest <>-cond-tests (is false))
+(deftest <>-bind-tests (is false))
+(deftest <>-let-tests (is false))
+(deftest <>-do-tests (is false))
+(deftest <>-fx!-tests (is false))
 
 (deftest non-nil->-tests
 
   (testing "No expression results in nil"
-    (is (nil? (non-nil-> 42)))))
+    (is (nil? (non-nil-> 42))))
+
+  (is false))
+
+(deftest >-some-tests (is false))
+(deftest >-non-nil-tests (is false))
+(deftest >-cond-tests (is false))
+(deftest >-bind-tests (is false))
+(deftest >-let-tests (is false))
+(deftest >-do-tests (is false))
+(deftest >-fx!-tests (is false))
+
+(deftest non-nil->>-tests (is false))
+(deftest >>-some-tests (is false))
+(deftest >>-non-nil-tests (is false))
+(deftest >>-cond-tests (is false))
+(deftest >>-bind-tests (is false))
+(deftest >>-let-tests (is false))
+(deftest >>-do-tests (is false))
+(deftest >>-fx!-tests (is false))
+
+(deftest >->>-tests (is false))
+(deftest >-<>-tests (is false))
+(deftest >>->-tests (is false))
+(deftest >>-<>-tests (is false))
+(deftest <>->-tests (is false))
+(deftest <>->>-tests (is false))
