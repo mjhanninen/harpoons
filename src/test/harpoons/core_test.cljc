@@ -8,24 +8,6 @@
 
 (defn- rconj [el coll] (conj coll el))
 
-(defmacro lrep
-  "Create a vector containing `n` copies of `expr`."
-  [expr n]
-  `(vector ~@(repeat n expr)))
-
-(defmacro rrep
-  "Create a vector containing `n` copies of `expr`."
-  [n expr]
-  `(vector ~@(repeat n expr)))
-
-(deftest lrep-and-rrep-evaluate-aggressively
-  (let [eval-count (atom 0)]
-    (is (= 15 ; = 1 + 2 + 3 + 4 + 5
-           (apply + (rrep 5 (swap! eval-count inc))))))
-  (let [eval-count (atom 0)]
-    (is (= 15
-           (apply + (lrep (swap! eval-count inc) 5))))))
-
 ;;;; Tests proper
 
 (deftest -<>-tests
