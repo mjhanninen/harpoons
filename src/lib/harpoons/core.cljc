@@ -381,7 +381,7 @@
    :doc/format :markdown
    :style/indent 0}
   [& clauses-and-expr]
-  `(cond-> ~(last clauses-and-expr)
+  `(cond->> ~(last clauses-and-expr)
      ~@(butlast clauses-and-expr)))
 
 (defmacro >>-bind
