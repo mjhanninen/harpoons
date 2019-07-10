@@ -15,7 +15,7 @@
   before the first form is evaluated.
 
   Note that `(-<> expr ...)` is equivalent to `(as-> expr <> ...)`."
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 1}
   [expr & forms]
@@ -23,7 +23,7 @@
 
 (defmacro some-<>
   "Thread the results through the diamonds in `forms` short-circuiting at nil."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(some-<> expr forms*)]
    :doc/format :markdown
    :style/indent 1}
@@ -44,7 +44,7 @@
     (= <> 10) (* <> <>))
   ; => 100
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(cond-<> expr clauses*)]
    :doc/format :markdown
    :style/indent 1}
@@ -58,7 +58,7 @@
 
 (defmacro non-nil-<>
   "Returns the first non-nil evaluation of `forms` with `expr` bound to `<>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(non-nil-<> expr form*)]
    :doc/format :markdown
    :style/indent 1}
@@ -72,7 +72,7 @@
   Embeds a short-circuiting diamond-threading context that returns the first
   nil value.  Seeds the embedded context with the threaded value from the
   enclosing diamond-threading context.  See also: `harpoons.core/some-<>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(<>-some threaded-form*)]
    :doc/format :markdown
    :style/indent 0}
@@ -85,7 +85,7 @@
   Embeds a short-circuiting diamond-threading context that returns the first
   non-nil value.  Seeds the embedded context with the threaded value from the
   enclosing diamond-threading context.  See also: `harpoons.core/non-nil-<>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(<>-non-nil threaded-form*)]
    :doc/format :markdown
    :style/indent 0}
@@ -98,7 +98,7 @@
   Embeds a conditional diamond-threading context.  Seeds the embedded context
   with the threaded value from the enclosing diamond-threading context.  See
   also: `harpoons.core/cond-<>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(cond-<> clause*)]
    :doc/format :markdown
    :style/indent 0}
@@ -113,7 +113,7 @@
   diamond-threading scope by evaluating the `forms` successively
   threading the result of the previous evaluation into the next form at
   locations marked by the diamond symbol `<>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(<>-bind binding-form forms*)]
    :doc/format :markdown
    :style/indent 1}
@@ -130,7 +130,7 @@
 
   Note that the value threaded in the outer diamond threading scope remain
   bound to the symbol `<>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(<>-bind binding-form body-forms*)]
    :doc/format :markdown
    :style/indent 1}
@@ -144,7 +144,7 @@
   Note that this an alias for `do`.  You might use this for the sake of
   syntactic consistency.  However in general you should prefer `do` over
   `<>-do`."
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [& body]
@@ -166,7 +166,7 @@
     (= <> '(4 6 6 9)))
   ; => true
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(<>-fx! body-forms*)]
    :doc/format :markdown
    :style/indent 0}
@@ -196,7 +196,7 @@
     (get :bar)
     (get :foo))                                ; => 2
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 1}
   [expr & forms]
@@ -219,7 +219,7 @@
   enclosing left-threading context.  See also: `clojure.core/some->`.
 
   Note: This is effectively an alias for `clojure.core/some->`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(>-some expr threaded-form*)]
    :doc/format :markdown
    :style/indent 0}
@@ -234,7 +234,7 @@
   enclosing left-threading context.  See also: `harpoons.core/non-nil->`.
 
   Note: This is effectively an alias for `harpoons.core/non-nil->`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(>-non-nil expr threaded-form*)]
    :doc/format :markdown
    :style/indent 0}
@@ -249,7 +249,7 @@
   also: `clojure.core/cond->`.
 
   Note: This is effectively an alias for `clojure.core/cond->`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(>-cond expr clause*)]
    :doc/format :markdown
    :style/indent 0}
@@ -264,7 +264,7 @@
   left-threading scope by evaluating `forms` successively and threading the
   result from the previous evaluation through the first argument position
   within the next form."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(>-bind threaded-value binding-form forms*)]
    :doc/format :markdown
    :style/indent 1}
@@ -279,7 +279,7 @@
   Binds the value threaded in the outer left-threading scope to the symbols in
   `binding-form` destructuring the value as necessary.  Evaluates the forms in
   `body` returning the value of the last."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(>-let threaded-value binding-form body*)]
    :doc/format :markdown
    :style/indent 1}
@@ -288,7 +288,7 @@
      ~@body))
 
 (defmacro >-do
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [expr & body]
@@ -310,7 +310,7 @@
        (>-fx! (prn :after <>))) ; \":after {:foo 42, :bar 3.14}\"
      {:foo 42, :bar 3.14})       ; => true
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(>-fx! expr forms*)]
    :doc/format :markdown
    :style/indent 0}
@@ -327,7 +327,7 @@
   Threads `expr` syntactically through the right-hand side of `forms` and
   evaluates the forms in a short-circuiting manner returning the first non-nil
   result, if any.  The expression `expr` is evaluated at most once."
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 1}
   [expr & forms]
@@ -348,7 +348,7 @@
   Embeds a short-circuiting right-threading context that returns the first nil
   value.  Seeds the embedded context with the threaded value from the
   enclosing right-threading context.  See also: `clojure.core/some->>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(>>-some threaded-form* expr)]
    :doc/format :markdown
    :style/indent 0}
@@ -362,7 +362,7 @@
   Embeds a short-circuiting right-threading context that returns the first
   non-nil value.  Seeds the embedded context with the threaded value from the
   enclosing right-threading context.  See also: `harpoons.core/non-nil->>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(>>-non-nil threaded-form* expr)]
    :doc/format :markdown
    :style/indent 0}
@@ -376,7 +376,7 @@
   Embeds a conditional right-threading context.  Seeds the embedded context
   with the threaded value from the enclosing right-threading context.  See
   also: `clojure.core/cond->>`."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms ['(>>-cond clause* expr)]
    :doc/format :markdown
    :style/indent 0}
@@ -392,7 +392,7 @@
   right-threading scope by evaluating `forms` successively and threading the
   result from the previous evaluation through the last argument position within
   the next form."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(>>-bind binding-form forms* threaded-value)]
    :doc/format :markdown
    :style/indent 1}
@@ -407,7 +407,7 @@
   Binds the value threaded in the outer right-threading scope to the symbols
   in `binding-form` destructuring the value as necessary.  Evaluates the forms
   in `body` returning the value of the last."
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(>>-let binding-form body* threaded-value)]
    :doc/format :markdown
    :style/indent 1}
@@ -416,7 +416,7 @@
      ~@(butlast body-and-threaded-value)))
 
 (defmacro >>-do
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [& body-and-expr]
@@ -439,7 +439,7 @@
        (>>-fx! (prn :after <>))) ; prints \":after (0 2 4)\"
      '(0 2 4))                   ; => true
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :forms '[(>>-fx! forms* expr)]
    :doc/format :markdown
    :style/indent 0}
@@ -470,7 +470,7 @@
       (sort-by :weight)
       (take 5)))
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [expr & forms]
@@ -495,7 +495,7 @@
   Note that `>-<>` is essentially equivalent to `-<>`.  It differs only by its
   `:style/indent` meta-data that guides more advanced editors in laying out
   the source code."
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [expr & body]
@@ -503,7 +503,7 @@
 
 (defmacro >>->
   "Bridge between an outer `(->> ...)` and inner `(-> ...)` threading scopes."
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [& forms]
@@ -511,7 +511,7 @@
 
 (defmacro >>-<>
   "Bridge between an outer `(->> ...)` and inner `(-<> ...)` threading scopes."
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [& forms]
@@ -530,7 +530,7 @@
       (- 2)     ; => 10
       (* <>)))  ; 12 still bound to <> => 120
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [& forms]
@@ -549,7 +549,7 @@
       (- 2)     ; => -10
       (* <>)))  ; 12 still bound to <> => -120
   ```"
-  {:added "0.1"
+  {:added "0.0.1"
    :doc/format :markdown
    :style/indent 0}
   [& forms]
