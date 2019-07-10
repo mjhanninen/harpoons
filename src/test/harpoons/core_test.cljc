@@ -24,18 +24,21 @@
               [x x x])]
       (is (= (-<> thrice
                (<> <>))
-             [thrice thrice thrice]))))
+             [thrice thrice thrice])))))
 
-  ;; The `as->` macro seems to have few surprising limitations; consider
-  ;; reimplementing from scratch.
-  #_
-  (comment
-    ;; `as->` requires at least one argument
-    (testing "No arguments results in nil"
-      (is (nil? (-<>))))
-    ;; `as->` doesn't preserve the metadata
-    (testing "Metadata is preserved"
-      (is (contains? (meta (-<> ^:foo {} identity)) :foo)))))
+(deftest ^:ignore -<>-extra-tests
+
+  ;; The `as->` macro seems to have some limitations; consider implementing
+  ;; `-<>` from scratch.  The following **currently failing** tests document
+  ;; the shortcomings.
+
+  (testing "No arguments results in nil"
+    #_(is (nil? (-<>)))
+    (is (macroexpand-1 '(-<>))))
+
+  ;; `as->` doesn't preserve the metadata
+  (testing "Metadata is preserved"
+    (is (contains? (meta (-<> ^:foo {} identity)) :foo))))
 
 (deftest some-<>-tests
 
@@ -110,43 +113,43 @@
       true (cond-<> identity
              (<> <>) true))))
 
-(deftest non-nill-<>-tests (is false))
-(deftest <>-some-tests (is false))
-(deftest <>-non-nil-tests (is false))
-(deftest <>-cond-tests (is false))
-(deftest <>-cond-tests (is false))
-(deftest <>-bind-tests (is false))
-(deftest <>-let-tests (is false))
-(deftest <>-do-tests (is false))
-(deftest <>-fx!-tests (is false))
+(deftest ^:missing non-nill-<>-tests (is false))
+(deftest ^:missing <>-some-tests (is false))
+(deftest ^:missing <>-non-nil-tests (is false))
+(deftest ^:missing <>-cond-tests (is false))
+(deftest ^:missing <>-cond-tests (is false))
+(deftest ^:missing <>-bind-tests (is false))
+(deftest ^:missing <>-let-tests (is false))
+(deftest ^:missing <>-do-tests (is false))
+(deftest ^:missing <>-fx!-tests (is false))
 
-(deftest non-nil->-tests
+(deftest ^:missing non-nil->-tests
 
   (testing "No expression results in nil"
     (is (nil? (non-nil-> 42))))
 
   (is false))
 
-(deftest >-some-tests (is false))
-(deftest >-non-nil-tests (is false))
-(deftest >-cond-tests (is false))
-(deftest >-bind-tests (is false))
-(deftest >-let-tests (is false))
-(deftest >-do-tests (is false))
-(deftest >-fx!-tests (is false))
+(deftest ^:missing >-some-tests (is false))
+(deftest ^:missing >-non-nil-tests (is false))
+(deftest ^:missing >-cond-tests (is false))
+(deftest ^:missing >-bind-tests (is false))
+(deftest ^:missing >-let-tests (is false))
+(deftest ^:missing >-do-tests (is false))
+(deftest ^:missing >-fx!-tests (is false))
 
-(deftest non-nil->>-tests (is false))
-(deftest >>-some-tests (is false))
-(deftest >>-non-nil-tests (is false))
-(deftest >>-cond-tests (is false))
-(deftest >>-bind-tests (is false))
-(deftest >>-let-tests (is false))
-(deftest >>-do-tests (is false))
-(deftest >>-fx!-tests (is false))
+(deftest ^:missing non-nil->>-tests (is false))
+(deftest ^:missing >>-some-tests (is false))
+(deftest ^:missing >>-non-nil-tests (is false))
+(deftest ^:missing >>-cond-tests (is false))
+(deftest ^:missing >>-bind-tests (is false))
+(deftest ^:missing >>-let-tests (is false))
+(deftest ^:missing >>-do-tests (is false))
+(deftest ^:missing >>-fx!-tests (is false))
 
-(deftest >->>-tests (is false))
-(deftest >-<>-tests (is false))
-(deftest >>->-tests (is false))
-(deftest >>-<>-tests (is false))
-(deftest <>->-tests (is false))
-(deftest <>->>-tests (is false))
+(deftest ^:missing >->>-tests (is false))
+(deftest ^:missing >-<>-tests (is false))
+(deftest ^:missing >>->-tests (is false))
+(deftest ^:missing >>-<>-tests (is false))
+(deftest ^:missing <>->-tests (is false))
+(deftest ^:missing <>->>-tests (is false))

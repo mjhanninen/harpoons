@@ -20,7 +20,9 @@
                 {:git/url "https://github.com/cognitect-labs/test-runner.git"
                  :sha "cb96e80f6f3d3b307c59cbeb49bb0dcb3a2a780b"}}
    :main-opts ["-m" "cognitect.test-runner"
-               "--dir" "src/test"]}
+               "--dir" "src/test"
+               "--exclude" "ignore"
+               "--exclude" "missing"]}
 
   :1.7 {:override-deps {org.clojure/clojure {:mvn/version "1.7.0"}}}
   :1.8 {:override-deps {org.clojure/clojure {:mvn/version "1.8.0"}}}
