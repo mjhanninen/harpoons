@@ -9,9 +9,12 @@ versioning][semver].
 
 ## [Unreleased]
 
+## [0.0.2] - 2019-07-10
+
 ### Changed
 
-- Converted cheatsheet documentation from SVG to HTML format.
+- Fix incorrect threading in `>>-cond` macro.
+- Convert cheatsheet documentation from SVG to HTML format.
 
 ## [0.0.1] - 2019-04-19
 
@@ -26,5 +29,6 @@ versioning][semver].
 
 [keepachangelog.com]: https://keepachangelog.com/
 [semver]: https://semver.org/
-[Unreleased]: https://github.com/mjhanninen/harpoons/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/mjhanninen/harpoons/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/mjhanninen/harpoons/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/mjhanninen/harpoons/releases/v0.0.1
