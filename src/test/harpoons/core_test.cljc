@@ -14,25 +14,25 @@
 
   (testing "Entering expression is evaluated only once"
     (let [a (atom 0)]
-      (is (= (-<> (swap! a inc)
+      (is (= 7
+             (-<> (swap! a inc)
                [<> <> <> <> <> <> <>]
-               (apply + <>))
-             7))))
+               (apply + <>))))))
 
   (testing "Basic data structures work naturally"
     (let [s (gensym)]
-      (is (= (-<> s
+      (is (= #{[{:l s :r s} {:l s :r s}]}
+             (-<> s
                {:l <> :r <>}
                [<> <>]
-               #{<>})
-             #{[{:l s :r s} {:l s :r s}]}))))
+               #{<>})))))
 
   (testing "Diamond can be used in function position"
     (letfn [(thrice [x]
               [x x x])]
-      (is (= (-<> thrice
-               (<> <>))
-             [thrice thrice thrice])))))
+      (is (= [thrice thrice thrice]
+             (-<> thrice
+               (<> <>)))))))
 
 (deftest ^:ignore -<>-extra-tests
 
